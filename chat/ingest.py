@@ -1,6 +1,7 @@
-from dotenv import load_dotenv
+from dotenv import dotenv_values, load_dotenv
 
 load_dotenv()
+config = dotenv_values(".env")
 
 from langchain.document_loaders import PyPDFLoader, TextLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -15,6 +16,8 @@ texts = text_splitter.split_documents(pages)
 
 print (texts)
 
-dataset_path = 'hub://langchain-chat/data'
+org = config["ACTIVELOOP_ORG"]
+
+dataset_path = 'hub://'+org+'/data'
 embeddings = OpenAIEmbeddings()
 db = DeepLake.from_documents(texts, embeddings, dataset_path=dataset_path)

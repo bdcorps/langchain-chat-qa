@@ -1,6 +1,6 @@
-from dotenv import load_dotenv
-
+from dotenv import dotenv_values, load_dotenv
 load_dotenv()
+config = dotenv_values(".env")
 
 from langchain.chains import ConversationalRetrievalChain, RetrievalQA
 from langchain.chat_models import ChatOpenAI
@@ -8,7 +8,9 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.llms import OpenAI
 from langchain.vectorstores import DeepLake
 
-dataset_path = 'hub://langchain-sukh-real-estate/data'
+org = config["ACTIVELOOP_ORG"]
+
+dataset_path = 'hub://'+org+'/data'
 
 embeddings = OpenAIEmbeddings()
 
